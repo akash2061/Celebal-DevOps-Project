@@ -19,7 +19,7 @@ This project showcases a complete DevOps workflow that includes:
 
 ## 🛠️ Technology Stack
 
-### Frontend
+### Application
 - **Next.js 15.2.4** - React framework
 - **TypeScript** - Type-safe JavaScript
 - **Tailwind CSS** - Utility-first CSS framework
@@ -46,8 +46,8 @@ This project showcases a complete DevOps workflow that includes:
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd Final-Project
+   git clone https://github.com/akash2061/Celebal-DevOps-Project
+   cd Celebal-DevOps-Project
    ```
 
 2. **Navigate to the App directory**
@@ -57,9 +57,9 @@ This project showcases a complete DevOps workflow that includes:
 
 3. **Install dependencies**
    ```bash
-   npm install
+   npm install --legacy-peer-deps 
    # or
-   pnpm install
+   pnpm install --legacy-peer-deps 
    ```
 
 4. **Run the development server**
