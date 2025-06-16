@@ -1,0 +1,16 @@
+---
+config:
+    theme: light
+    title: Azure DevOps CI/CD Pipeline
+---
+
+graph LR
+    A[Developer] -->|Code Check-in| B[Azure DevOps Repo]
+    B --> B1[feature]
+    B --> B2[main]
+    B1 -->|PR| B2
+    B -->|Source Branch| C[Build Pipeline]
+    C -->|Artifacts| D[Artifacts]
+    C -->|Image push| E[Azure Container Registry]
+    D --> F[Release Pipeline]
+    F -->|Deploy to Prod WS| G[Azure Kubernetes Service]
