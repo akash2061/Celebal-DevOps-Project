@@ -1,10 +1,10 @@
-FROM node:18-alpine AS base
+FROM node:18-slim AS base
 WORKDIR /app
 COPY . .
 RUN npm ci --legacy-peer-deps
 RUN npm run build
 
-FROM node:18-alpine AS production
+FROM node:18-slim AS production
 WORKDIR /app
 COPY --from=base /app /app
 EXPOSE 80
