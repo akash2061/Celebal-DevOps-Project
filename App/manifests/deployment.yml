@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celebal-project
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: celebal-project
+  template:
+    metadata:
+      labels:
+        app: celebal-project
+    spec:
+      containers:
+      - name: celebal-project
+        image: ${{ secrets.docker_user }}/celebal-project:latest
+        ports:
+        - containerPort: 3000
+---
+kind: Service
+metadata:
+  name: celebal-project-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: celebal-project
+  ports:
+    - port: 80
+      targetPort: 3000
