@@ -1,4 +1,4 @@
-name: Push Hello World to ACR
+name: Push Docker-Hub image to ACR
 
 on:
   workflow_dispatch:  # manual trigger
