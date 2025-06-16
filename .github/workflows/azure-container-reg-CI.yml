@@ -19,7 +19,7 @@ jobs:
     - name: ACR Login
       run: az acr login --name CelebalReg
 
-    - name: Pull Hello World Image
+    - name: Pull Docker-Hub Image
       run: docker pull ${{ secrets.DOCKER_USER }}/celebal-project:latest
 
     - name: Tag Image for ACR
