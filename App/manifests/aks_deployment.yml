@@ -25,6 +25,7 @@ spec:
               memory: "512Mi"
               cpu: "500m"
 ---
+apiVersion: v1
 kind: Service
 metadata:
   name: celebal-project-service
