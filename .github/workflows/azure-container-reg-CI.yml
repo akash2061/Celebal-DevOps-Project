@@ -1,0 +1,29 @@
+name: Push Hello World to ACR
+
+on:
+  workflow_dispatch:  # manual trigger
+
+jobs:
+  push-to-acr:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: ACR Login
+      run: az acr login --name CelebalReg
+
+    - name: Pull Hello World Image
+      run: docker pull ${{ secrets.DOCKER_USER }}/celebal-project:latest
+
+    - name: Tag Image for ACR
+      run: docker tag ${{ secrets.DOCKER_USER }}/celebal-project:latest celebalreg.azurecr.io/celebal-project:latest
+
+    - name: Push to ACR
+      run: docker push celebalreg.azurecr.io/celebal-project:latest

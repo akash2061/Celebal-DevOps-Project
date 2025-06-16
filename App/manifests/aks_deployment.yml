@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celebal-project
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celebal-project
+  template:
+    metadata:
+      labels:
+        app: celebal-project
+    spec:
+      containers:
+        - name: celebal-project
+          image: celebalreg.azurecr.io/celebal-project:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+kind: Service
+metadata:
+  name: celebal-project-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: celebal-project
+  ports:
+    - port: 80
+      targetPort: 80

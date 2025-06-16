@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: celebal-project
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: celebal-project
@@ -13,11 +13,19 @@ spec:
         app: celebal-project
     spec:
       containers:
-      - name: celebal-project
-        image: ${{ secrets.docker_user }}/celebal-project:latest
-        ports:
-        - containerPort: 3000
+        - name: celebal-project
+          image: ${{ secrets.docker_user }}/celebal-project:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "200m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
 ---
+apiVersion: v1
 kind: Service
 metadata:
   name: celebal-project-service
@@ -27,4 +35,4 @@ spec:
     app: celebal-project
   ports:
     - port: 80
-      targetPort: 3000
+      targetPort: 80
