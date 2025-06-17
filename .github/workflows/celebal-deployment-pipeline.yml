@@ -127,15 +127,6 @@ jobs:
           result=$(az aks show --resource-group ${{ env.CLUSTER_RESOURCE_GROUP }} --name ${{ env.CLUSTER_NAME }} --query "apiServerAccessProfile.enablePrivateCluster")
           echo "PRIVATE_CLUSTER=$result" >> "$GITHUB_OUTPUT"
 
-      # Delete Namespace if it exists
-      - name: Delete Namespace if exists
-        run: |
-          if [ ${{ steps.isPrivate.outputs.PRIVATE_CLUSTER}} == 'true' ]; then
-            az aks command invoke --resource-group ${{ env.CLUSTER_RESOURCE_GROUP }} --name ${{ env.CLUSTER_NAME }} --command "kubectl delete namespace ${{ env.NAMESPACE }} --ignore-not-found" --query id -o tsv
-          else
-            kubectl delete namespace ${{ env.NAMESPACE }} --ignore-not-found
-          fi
-
       - name: Create Namespace
         if: ${{ env.ENABLENAMESPACECREATION == 'true' }}
         run: |
