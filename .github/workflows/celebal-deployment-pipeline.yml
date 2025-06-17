@@ -74,15 +74,15 @@ jobs:
       # Builds and pushes an image up to your Azure Container Registry
       - name: ACR Login
         run: az acr login --name ${{ env.AZURE_CONTAINER_REGISTRY }}
-      - name: Build Docker Image (linux/amd64)
-        run: |
-          docker build \
-          --platform linux/amd64 \
-          -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} \
-          -f ${{ env.DOCKER_FILE }} ${{ env.BUILD_CONTEXT_PATH }}
-      - name: Push Docker Image to ACR
-        run: |
-          docker push ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
+      # - name: Build Docker Image (linux/amd64)
+      #   run: |
+      #     docker build \
+      #     --platform linux/amd64 \
+      #     -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} \
+      #     -f ${{ env.DOCKER_FILE }} ${{ env.BUILD_CONTEXT_PATH }}
+      # - name: Push Docker Image to ACR
+      #   run: |
+      #     docker push ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}
   deploy:
     permissions:
       actions: read
@@ -107,7 +107,7 @@ jobs:
       - name: Set up kubelogin for non-interactive login
         uses: azure/use-kubelogin@v1
         with:
-          kubelogin-version: 'v0.0.25'
+          kubelogin-version: "v0.0.25"
 
       # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
       - name: Get K8s context
@@ -115,8 +115,8 @@ jobs:
         with:
           resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
           cluster-name: ${{ env.CLUSTER_NAME }}
-          admin: 'false'
-          use-kubelogin: 'true'
+          admin: "false"
+          use-kubelogin: "true"
           resource-type: ${{ env.CLUSTER_RESOURCE_TYPE }}
 
       # Checks if the AKS cluster is private
@@ -127,7 +127,15 @@ jobs:
           result=$(az aks show --resource-group ${{ env.CLUSTER_RESOURCE_GROUP }} --name ${{ env.CLUSTER_NAME }} --query "apiServerAccessProfile.enablePrivateCluster")
           echo "PRIVATE_CLUSTER=$result" >> "$GITHUB_OUTPUT"
 
-      # Create Namespace
+      # Delete Namespace if it exists
+      - name: Delete Namespace if exists
+        run: |
+          if [ ${{ steps.isPrivate.outputs.PRIVATE_CLUSTER}} == 'true' ]; then
+            az aks command invoke --resource-group ${{ env.CLUSTER_RESOURCE_GROUP }} --name ${{ env.CLUSTER_NAME }} --command "kubectl delete namespace ${{ env.NAMESPACE }} --ignore-not-found" --query id -o tsv
+          else
+            kubectl delete namespace ${{ env.NAMESPACE }} --ignore-not-found
+          fi
+
       - name: Create Namespace
         if: ${{ env.ENABLENAMESPACECREATION == 'true' }}
         run: |
@@ -172,4 +180,3 @@ jobs:
           namespace: ${{ env.NAMESPACE }}
           resource-type: ${{ env.CLUSTER_RESOURCE_TYPE }}
           annotate-namespace: ${{ env.CLUSTER_RESOURCE_TYPE != 'Microsoft.ContainerService/fleets' }}
-

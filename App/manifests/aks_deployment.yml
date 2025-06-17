@@ -17,13 +17,6 @@ spec:
           image: celebalreg.azurecr.io/celebal-project
           ports:
             - containerPort: 80
-          resources:
-            requests:
-              memory: "256Mi"
-              cpu: "200m"
-            limits:
-              memory: "512Mi"
-              cpu: "500m"
 ---
 apiVersion: v1
 kind: Service

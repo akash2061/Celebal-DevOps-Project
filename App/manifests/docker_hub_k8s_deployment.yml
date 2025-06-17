@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: celebal-project
-          image: ${{ secrets.docker_user }}/celebal-project:latest
+          image: ${{ secrets.DOCKER_USER }}/celebal-project:latest
           ports:
             - containerPort: 80
           resources:
