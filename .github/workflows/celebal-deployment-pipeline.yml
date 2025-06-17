@@ -144,6 +144,7 @@ jobs:
           else
             kubectl get namespace ${{ env.NAMESPACE }} || kubectl create namespace ${{ env.NAMESPACE }}
           fi
+          kubectl get namespace ${{ env.NAMESPACE }} || kubectl create namespace ${{ env.NAMESPACE }}
 
       # Validate Namespace exists
       - name: Validate Namespace Exists
