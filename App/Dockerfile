@@ -5,4 +5,4 @@ RUN npm ci --legacy-peer-deps
 COPY . .
 RUN npm run build
 EXPOSE 80
-CMD ["npx", "next", "start", "-p", "80"]
+CMD ["npm", "start"]
