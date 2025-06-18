@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: celebal-project
-          image: akash2061/celebal-project:latest # Replace with your Docker Hub image
+          image: akash2061/celebal-project:latest
           ports:
             - containerPort: 80
           resources:
