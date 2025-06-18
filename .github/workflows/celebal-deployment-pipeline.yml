@@ -71,10 +71,16 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           auth-type: ${{ env.AUTH_TYPE }}
 
-      # Builds and pushes an image up to your Azure Container Registry
-      - name: Build and push image to ACR
+      - name: ACR Login
+        run: az acr login --name ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+
+      - name: Build Docker Image
         run: |
-          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.ACR_RESOURCE_GROUP }} -f ${{ env.DOCKER_FILE }} ${{ env.BUILD_CONTEXT_PATH }}
+          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }} .
+
+      - name: Push Docker Image to ACR
+        run: |
+          docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }}
   deploy:
     permissions:
       actions: read
