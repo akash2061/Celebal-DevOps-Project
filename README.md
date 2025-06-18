@@ -161,6 +161,10 @@ Key features:
    - Builds and pushes container images
    - Deploys to AKS cluster
 
+> K8s Deployment Manifest using ACR : [ACR-K8s](App/manifests/aks_deployment.yml)
+
+> K8s Deployment Manifest using Docker-Hub : [Docker-Hub-K8s](App/manifests/docker_hub_k8s_deployment.yml)
+
 ### AKS Pipeline Deployment:
 ![GitHub-Workflow](Docs/auto_k8s/auto_k8s_github_action.png)
 

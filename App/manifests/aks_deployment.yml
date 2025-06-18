@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: celebal-project
-          image: celebalreg.azurecr.io/celebal-project
+          image: celebalreg.azurecr.io/celebal-project # Replace with your ACR image
           ports:
             - containerPort: 80
 ---

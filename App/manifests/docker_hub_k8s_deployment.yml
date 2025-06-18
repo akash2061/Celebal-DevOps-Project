@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: celebal-project
-          image: ${{ secrets.DOCKER_USER }}/celebal-project:latest
+          image: akash2061/celebal-project:latest # Replace with your Docker Hub image
           ports:
             - containerPort: 80
           resources:

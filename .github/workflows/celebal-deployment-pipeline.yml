@@ -33,9 +33,9 @@
 name: celebal-deployment-pipeline
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+  # push:
+  #   branches: [main]   # uncomment this line to trigger on push to main branch
+  workflow_dispatch:     # manual trigger
 
 env:
   ACR_RESOURCE_GROUP: Celebal-Project
