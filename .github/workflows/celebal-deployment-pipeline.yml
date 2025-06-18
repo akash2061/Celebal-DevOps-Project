@@ -76,11 +76,11 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }} -f ./App/Dockerfile ./App/
+          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}/celebal-project:${{ github.sha }} -f ./App/Dockerfile ./App/
 
       - name: Push Docker Image to ACR
         run: |
-          docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }}
+          docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}/celebal-project:${{ github.sha }}
   deploy:
     permissions:
       actions: read
