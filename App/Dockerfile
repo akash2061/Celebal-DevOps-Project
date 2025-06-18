@@ -13,4 +13,4 @@ COPY --from=base /app/node_modules ./node_modules
 COPY --from=base /app/public ./public
 
 EXPOSE 80
-CMD ["npm", "start", "-p", "80"]
+CMD ["npm", "start"]
