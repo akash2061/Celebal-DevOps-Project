@@ -46,8 +46,8 @@ The following screenshots showcase real-time deployments from our CI/CD workflow
 ![Autoscale Enabled K8s](Docs/auto_k8s/auto_k8s_pods.png)
 ### ✅ Single Image on K8s
 ![Single Image on K8s](Docs/single_image/single-image_k8s_deployment.png)
-### ✅ Container Registry Push
-![Container Registry Push](Docs/ACR_n_NodePool/Container_regestory.png)
+### ✅ Azure Container Registry
+![Container Registry](Docs/ACR_n_NodePool/Container_regestory.png)
 ### ✅ Node Pool Creation
 ![Node Pool Creation](Docs/ACR_n_NodePool/created_nodepool.png)
 
