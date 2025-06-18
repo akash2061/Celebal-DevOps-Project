@@ -2,6 +2,10 @@
 
 A comprehensive DevOps project demonstrating CI/CD pipeline implementation for deploying a Next.js application to Azure Kubernetes Service (AKS) using Azure DevOps.
 
+[![celebal-deployment-pipeline](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/celebal-deployment-pipeline.yml/badge.svg)](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/celebal-deployment-pipeline.yml)
+[![Docker Image CI](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/docker-image-CI.yml/badge.svg)](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/docker-image-CI.yml)
+[![Push Docker-Hub image to ACR](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/azure-container-reg-CI.yml/badge.svg)](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/azure-container-reg-CI.yml)
+
 ## 🏗️ Project Architecture
 
 ![Azure DevOps CI/CD Pipeline](Docs/azure_devops_cicd.png)
@@ -31,6 +35,23 @@ This project showcases a complete DevOps workflow that includes:
 - **Azure Container Registry** - Container image registry
 - **Azure Kubernetes Service** - Container orchestration
 - **Docker** - Containerization platform
+
+## 📸 Deployment Snapshots
+
+The following screenshots showcase real-time deployments from our CI/CD workflow:
+
+### ✅ AKS Deployment Success
+![AKS Deployment Success](Docs/auto_k8s/auto_k8s_result-1.png)
+### ✅ Autoscale Enabled K8s
+![Autoscale Enabled K8s](Docs/auto_k8s/auto_k8s_pods.png)
+### ✅ Single Image on K8s
+![Single Image on K8s](Docs/single_image/single-image_k8s_deployment.png)
+### ✅ Container Registry Push
+![Container Registry Push](Docs/ACR_n_NodePool/Container_regestory.png)
+### ✅ Node Pool Creation
+![Node Pool Creation](Docs/ACR_n_NodePool/created_nodepool.png)
+
+> Detailed ScreenShorts are available in : [Documentation](Docs/)
 
 ## 🚀 Getting Started
 
@@ -139,6 +160,17 @@ Key features:
    - Pipeline automatically triggers on code commits
    - Builds and pushes container images
    - Deploys to AKS cluster
+
+### AKS Pipeline Deployment:
+![GitHub-Workflow](Docs/auto_k8s/auto_k8s_github_action.png)
+
+## 🔁 Workflows 
+
+1. **Celebal Deployment Pipeline** : Complete CI/CD pipeline that builds images and deploys to Azure Kubernetes Service _(automated deployments)_
+
+2. **Docker Image CI** : Builds and pushes Docker images to Docker Hub [@u/akash2061](https://hub.docker.com/u/akash2061) _(manual trigger | Fallback Option)_
+
+3. **Azure Container Registry CI** : Migrates Docker images from Docker Hub to Azure Container Registry _(manual trigger)_
 
 ## 🤝 Contributing
 

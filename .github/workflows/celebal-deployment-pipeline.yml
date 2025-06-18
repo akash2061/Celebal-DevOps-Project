@@ -72,15 +72,15 @@ jobs:
           auth-type: ${{ env.AUTH_TYPE }}
 
       - name: ACR Login
-        run: az acr login --name ${{ secrets.AZURE_CONTAINER_REGISTRY }}
+        run: az acr login --name ${{ env.AZURE_CONTAINER_REGISTRY }}
 
       - name: Build Docker Image
         run: |
-          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}/celebal-project:${{ github.sha }} -f ./App/Dockerfile ./App/
+          docker build -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }} -f ${{ env.DOCKER_FILE }} ${{ env.BUILD_CONTEXT_PATH }}
 
       - name: Push Docker Image to ACR
         run: |
-          docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}/celebal-project:${{ github.sha }}
+          docker push ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }}
   deploy:
     permissions:
       actions: read
