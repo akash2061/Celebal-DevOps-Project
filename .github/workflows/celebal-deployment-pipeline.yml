@@ -170,4 +170,12 @@ jobs:
           namespace: ${{ env.NAMESPACE }}
           resource-type: ${{ env.CLUSTER_RESOURCE_TYPE }}
           annotate-namespace: ${{ env.CLUSTER_RESOURCE_TYPE != 'Microsoft.ContainerService/fleets' }}
-
+      
+      - name : show Public IP
+        if: ${{ env.CLUSTER_RESOURCE_TYPE != 'Microsoft.ContainerService/fleets' }}
+        run: |
+          kubectl get pods -n ${{ env.NAMESPACE }} -o wide
+          kubectl get svc -n ${{ env.NAMESPACE }}
+          echo "Public IP of the application is:"
+          PUBLIC_IP=$(kubectl get svc -n ${{ env.NAMESPACE }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+          echo "http://$PUBLIC_IP"
