@@ -1,6 +1,6 @@
-# Azure Kubernetes Service Deployment using Azure DevOps
+# Azure Kubernetes Service Deployment using GitHub Actions
 
-A comprehensive DevOps project demonstrating CI/CD pipeline implementation for deploying a Next.js application to Azure Kubernetes Service (AKS) using Azure DevOps.
+A comprehensive DevOps project demonstrating CI/CD pipeline implementation for deploying a Next.js application to Azure Kubernetes Service (AKS) using GitHub Actions.
 
 [![celebal-deployment-pipeline](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/celebal-deployment-pipeline.yml/badge.svg)](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/celebal-deployment-pipeline.yml)
 [![Docker Image CI](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/docker-image-CI.yml/badge.svg)](https://github.com/akash2061/Celebal-DevOps-Project/actions/workflows/docker-image-CI.yml)
@@ -8,8 +8,8 @@ A comprehensive DevOps project demonstrating CI/CD pipeline implementation for d
 
 ## 🏗️ Project Architecture
 
-![Azure DevOps CI/CD Pipeline](Docs/azure_devops_cicd.png)
-![Azure DevOps CI/CD Pipeline](Docs/High-Level-Architecture.png)
+![GitHub Actions CI/CD Pipeline](Docs/azure_devops_cicd.png)
+![GitHub Actions CI/CD Pipeline](Docs/High-Level-Architecture.png)
 
 ## 📋 Project Overview
 
@@ -17,7 +17,7 @@ This project showcases a complete DevOps workflow that includes:
 
 - **Frontend Application**: Next.js application with TypeScript and Tailwind CSS
 - **Containerization**: Docker containerization for consistent deployments
-- **CI/CD Pipeline**: Azure DevOps pipeline for automated build and deployment
+- **CI/CD Pipeline**: GitHub Actions pipeline for automated build and deployment
 - **Container Registry**: Azure Container Registry for image storage
 - **Orchestration**: Azure Kubernetes Service for container orchestration
 
@@ -31,7 +31,7 @@ This project showcases a complete DevOps workflow that includes:
 - **Lucide React** - Icon library
 
 ### DevOps & Infrastructure
-- **Azure DevOps** - CI/CD pipeline management
+- **GitHub Actions** - CI/CD pipeline management
 - **Azure Container Registry** - Container image registry
 - **Azure Kubernetes Service** - Container orchestration
 - **Docker** - Containerization platform
@@ -59,7 +59,7 @@ The following screenshots showcase real-time deployments from our CI/CD workflow
 
 - Node.js 18 or higher
 - Docker
-- Azure DevOps account
+- GitHub account
 - Azure subscription
 - kubectl (for local Kubernetes management)
 
@@ -110,7 +110,7 @@ The project implements a complete CI/CD pipeline as illustrated in the diagram a
 
 ### Pipeline Stages
 
-1. **Source Control**: Developer commits code to Azure DevOps repository
+1. **Source Control**: Developer commits code to GitHub repository
 2. **Feature Branch**: Development work happens in feature branches
 3. **Pull Request**: Code review and merge to main branch
 4. **Build Pipeline**: 
@@ -149,14 +149,14 @@ Key features:
 1. **Set up Azure resources**
    - Create AKS cluster
    - Set up Azure Container Registry
-   - Configure service connections in Azure DevOps
+   - Configure GitHub secrets for authentication
 
-2. **Configure pipeline variables**
+2. **Configure GitHub secrets**
    - Container registry URL
    - Kubernetes namespace
-   - Service principal credentials
+   - Azure service principal credentials
 
-3. **Deploy using Azure DevOps**
+3. **Deploy using GitHub Actions**
    - Pipeline automatically triggers on code commits
    - Builds and pushes container images
    - Deploys to AKS cluster
@@ -182,7 +182,7 @@ Key features:
 2. Create a feature branch
 3. Make your changes
 4. Submit a pull request
-5. Ensure all pipeline checks pass
+5. Ensure all GitHub Actions checks pass
 
 ## 📝 Documentation
 
@@ -210,4 +210,4 @@ This project is part of a DevOps learning initiative and is intended for educati
 
 ---
 
-**Note**: This project demonstrates enterprise-grade DevOps practices including automated testing, security scanning, and production deployment strategies using Azure cloud services.
+**Note**: This project demonstrates enterprise-grade DevOps practices including automated testing, security scanning, and production deployment strategies using GitHub Actions and Azure cloud services.
