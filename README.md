@@ -8,8 +8,10 @@ A comprehensive DevOps project demonstrating CI/CD pipeline implementation for d
 
 ## 🏗️ Project Architecture
 
-![GitHub Actions CI/CD Pipeline](Docs/azure_devops_cicd.png)
-![GitHub Actions CI/CD Pipeline](Docs/High-Level-Architecture.png)
+![GitHub Actions CI/CD Pipeline](Docs/Project_Architecture/azure_devops_cicd.png)
+![GitHub Actions CI/CD Pipeline](Docs/Project_Architecture/High-Level-Architecture.png)
+
+> Final Project Report: [View Documentation](Docs/DevOps_Internship_Final_Project_Documentation.pdf)
 
 ## 📋 Project Overview
 
