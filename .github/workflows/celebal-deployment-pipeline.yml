@@ -33,14 +33,14 @@
 name: celebal-deployment-pipeline
 
 on:
-  # push:
-  #   branches: [main]   # uncomment this line to trigger on push to main branch
-  workflow_dispatch:     # manual trigger
+  push:
+    branches: [main]
+  workflow_dispatch:
 
 env:
   ACR_RESOURCE_GROUP: Celebal-Project
   AZURE_CONTAINER_REGISTRY: celebalreg
-  CONTAINER_NAME: celebal-project
+  CONTAINER_NAME: image-workflow-1750858002997
   CLUSTER_NAME: CelebalK8s
   CLUSTER_RESOURCE_GROUP: Celebal-Project
   CLUSTER_RESOURCE_TYPE: Microsoft.ContainerService/managedClusters
@@ -48,7 +48,7 @@ env:
     ./App/manifests/aks_deployment.yml
   DOCKER_FILE: ./App/Dockerfile
   BUILD_CONTEXT_PATH: ./App/
-  NAMESPACE: namespace-workflow-1750266414690
+  NAMESPACE: namespace-workflow-1750858002997
   ENABLENAMESPACECREATION: false
   AUTH_TYPE: SERVICE_PRINCIPAL
 
@@ -71,16 +71,15 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           auth-type: ${{ env.AUTH_TYPE }}
 
-      - name: ACR Login
-        run: az acr login --name ${{ env.AZURE_CONTAINER_REGISTRY }}
-
-      - name: Build Docker Image
+      # Logs into ACR
+      - name: Log into ACR
         run: |
-          docker build -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }} -f ${{ env.DOCKER_FILE }} ${{ env.BUILD_CONTEXT_PATH }}
+          az acr login -n ${{ env.AZURE_CONTAINER_REGISTRY }}
 
-      - name: Push Docker Image to ACR
+      # Builds and pushes an image up to your Azure Container Registry
+      - name: Build and push image to ACR
         run: |
-          docker push ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }}
+          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.ACR_RESOURCE_GROUP }} -f ${{ env.DOCKER_FILE }} ${{ env.BUILD_CONTEXT_PATH }}
   deploy:
     permissions:
       actions: read
@@ -170,9 +169,4 @@ jobs:
           namespace: ${{ env.NAMESPACE }}
           resource-type: ${{ env.CLUSTER_RESOURCE_TYPE }}
           annotate-namespace: ${{ env.CLUSTER_RESOURCE_TYPE != 'Microsoft.ContainerService/fleets' }}
-      
-      - name : show k8s deployment status
-        if: ${{ env.CLUSTER_RESOURCE_TYPE != 'Microsoft.ContainerService/fleets' }}
-        run: |
-          kubectl get pods -n ${{ env.NAMESPACE }}
-          kubectl get svc -n ${{ env.NAMESPACE }}
+
