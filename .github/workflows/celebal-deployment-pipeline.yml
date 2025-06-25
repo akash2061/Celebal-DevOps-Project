@@ -48,7 +48,7 @@ env:
     ./App/manifests/aks_deployment.yml
   DOCKER_FILE: ./App/Dockerfile
   BUILD_CONTEXT_PATH: ./App/
-  NAMESPACE: namespace-workflow-1750266414690
+  NAMESPACE: namespace-workflow-1750858002997
   ENABLENAMESPACECREATION: false
   AUTH_TYPE: SERVICE_PRINCIPAL
 
