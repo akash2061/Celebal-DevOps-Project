@@ -72,14 +72,16 @@ jobs:
           auth-type: ${{ env.AUTH_TYPE }}
 
       # Logs into ACR
-      - name: Log into ACR
-        run: |
-          az acr login -n ${{ env.AZURE_CONTAINER_REGISTRY }}
+      - name: ACR Login
+        run: az acr login --name ${{ env.AZURE_CONTAINER_REGISTRY }}
 
-      # Builds and pushes an image up to your Azure Container Registry
-      - name: Build and push image to ACR
+      - name: Build Docker Image
         run: |
-          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.ACR_RESOURCE_GROUP }} -f ${{ env.DOCKER_FILE }} ${{ env.BUILD_CONTEXT_PATH }}
+          docker build -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }} -f ${{ env.DOCKER_FILE }} ${{ env.BUILD_CONTEXT_PATH }}
+
+      - name: Push Docker Image to ACR
+        run: |
+          docker push ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/celebal-project:${{ github.sha }}
   deploy:
     permissions:
       actions: read
@@ -104,7 +106,7 @@ jobs:
       - name: Set up kubelogin for non-interactive login
         uses: azure/use-kubelogin@v1
         with:
-          kubelogin-version: 'v0.0.25'
+          kubelogin-version: "v0.0.25"
 
       # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
       - name: Get K8s context
@@ -112,8 +114,8 @@ jobs:
         with:
           resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
           cluster-name: ${{ env.CLUSTER_NAME }}
-          admin: 'false'
-          use-kubelogin: 'true'
+          admin: "false"
+          use-kubelogin: "true"
           resource-type: ${{ env.CLUSTER_RESOURCE_TYPE }}
 
       # Checks if the AKS cluster is private
@@ -169,4 +171,3 @@ jobs:
           namespace: ${{ env.NAMESPACE }}
           resource-type: ${{ env.CLUSTER_RESOURCE_TYPE }}
           annotate-namespace: ${{ env.CLUSTER_RESOURCE_TYPE != 'Microsoft.ContainerService/fleets' }}
-
